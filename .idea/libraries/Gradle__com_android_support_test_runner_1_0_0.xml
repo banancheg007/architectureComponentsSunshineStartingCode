@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.android.support.test:runner-1.0.0">
+    <CLASSES>
+      <root url="file://C:/Users/Public/.gradle/caches/transforms-1/files-1.1/runner-1.0.0.aar/e29eeea1562ed1c556bb22c80d245bb8/res" />
+      <root url="jar://C:/Users/Public/.gradle/caches/transforms-1/files-1.1/runner-1.0.0.aar/e29eeea1562ed1c556bb22c80d245bb8/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://C:/Users/Public/.gradle/caches/modules-2/files-2.1/com.android.support.test/runner/1.0.0/beb78fb691e7544877f13b13c398b331939548bc/runner-1.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
