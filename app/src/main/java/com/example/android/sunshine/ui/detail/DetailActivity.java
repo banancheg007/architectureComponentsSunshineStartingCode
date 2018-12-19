@@ -15,13 +15,15 @@
  */
 package com.example.android.sunshine.ui.detail;
 
+import android.arch.lifecycle.LifecycleActivity;
+import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import com.example.android.sunshine.R;
 import com.example.android.sunshine.data.database.WeatherEntry;
 import com.example.android.sunshine.databinding.ActivityDetailBinding;
+import com.example.android.sunshine.utilities.InjectorUtils;
 import com.example.android.sunshine.utilities.SunshineDateUtils;
 import com.example.android.sunshine.utilities.SunshineWeatherUtils;
 
@@ -30,7 +32,7 @@ import java.util.Date;
 /**
  * Displays single day's forecast
  */
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends LifecycleActivity {
 
     public static final String WEATHER_ID_EXTRA = "WEATHER_ID_EXTRA";
 
@@ -42,6 +44,7 @@ public class DetailActivity extends AppCompatActivity {
      * programmatically without cluttering up the code with findViewById.
      */
     private ActivityDetailBinding mDetailBinding;
+    private DetailActivityViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,16 @@ public class DetailActivity extends AppCompatActivity {
         mDetailBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
         long timestamp = getIntent().getLongExtra(WEATHER_ID_EXTRA, -1);
         Date date = new Date(timestamp);
+
+        // Get the ViewModel from the factory
+        DetailViewModelFactory factory = InjectorUtils.provideDetailViewModelFactory(this.getApplicationContext(), date);
+        mViewModel = ViewModelProviders.of(this, factory).get(DetailActivityViewModel.class);
+
+        // Observers changes in the WeatherEntry with the id mId
+        mViewModel.getWeather().observe(this, weatherEntry -> {
+            // If the weather forecast details change, update the UI
+            if (weatherEntry != null) bindWeatherToUI(weatherEntry);
+        });
 
     }
 

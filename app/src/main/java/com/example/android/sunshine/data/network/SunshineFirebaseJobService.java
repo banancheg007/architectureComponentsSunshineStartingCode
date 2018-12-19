@@ -23,6 +23,15 @@ import com.firebase.jobdispatcher.JobService;
 import com.firebase.jobdispatcher.RetryStrategy;
 
 
+import android.util.Log;
+
+import com.example.android.sunshine.utilities.InjectorUtils;
+import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.JobParameters;
+import com.firebase.jobdispatcher.JobService;
+import com.firebase.jobdispatcher.RetryStrategy;
+
+
 public class SunshineFirebaseJobService extends JobService {
     private static final String LOG_TAG = SunshineFirebaseJobService.class.getSimpleName();
 
@@ -40,7 +49,9 @@ public class SunshineFirebaseJobService extends JobService {
     public boolean onStartJob(final JobParameters jobParameters) {
         Log.d(LOG_TAG, "Job service started");
 
-        // TODO Finish this method when instructed. Will eventually call the fetchWeather code
+        WeatherNetworkDataSource networkDataSource =
+                InjectorUtils.provideNetworkDataSource(this.getApplicationContext());
+        networkDataSource.fetchWeather();
 
         jobFinished(jobParameters, false);
 
