@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 26
@@ -43,10 +44,14 @@ dependencies {
     androidTestImplementation "com.android.support:support-annotations:$support_version"
     androidTestImplementation "com.android.support.test:runner:$support_test_version"
     androidTestImplementation "com.android.support.test:rules:$support_test_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 allprojects {
     repositories {
         jcenter()
         maven { url 'https://maven.google.com' }
     }
+}
+repositories {
+    mavenCentral()
 }
